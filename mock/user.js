@@ -53,6 +53,8 @@ export default [
     type: 'get',
     response: config => {
       const { token } = config.query
+      console.log(token)
+      console.log('========')
       const info = users[token]
 
       // mock error

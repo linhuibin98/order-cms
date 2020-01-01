@@ -116,6 +116,7 @@ export default {
       })
 
       if (res.errorCode === 0) {
+        // eslint-disable-next-line eqeqeq
         const index = this.tableData.findIndex(item => item.food_id == food_id)
         this.tableData.splice(index, 1)
       }
@@ -162,6 +163,7 @@ export default {
           cloneGoods.food_commend =
           this.currentGoods.food_commend === 1 ? '是' : '否'
           const index = this.tableData.findIndex(
+            // eslint-disable-next-line eqeqeq
             item => item.food_id == cloneGoods.food_id
           )
           this.tableData[index] = cloneGoods

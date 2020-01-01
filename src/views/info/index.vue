@@ -33,8 +33,8 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
-import { getBaseInfo, updateBaseInfo } from '@/api/user';
+import { mapGetters } from 'vuex'
+import { getBaseInfo, updateBaseInfo } from '@/api/user'
 
 export default {
   data: () => {
