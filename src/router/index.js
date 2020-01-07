@@ -104,7 +104,7 @@ export const constantRoutes = [
       {
         path: 'index',
         component: () => import('@/views/goods/index'),
-        name: 'Profile',
+        name: 'Goods',
         meta: { title: '商品管理', icon: 'list', noCache: true }
       }
     ]
@@ -125,7 +125,7 @@ export const constantRoutes = [
       {
         path: 'add',
         component: () => import('@/views/employeeAdd/index'),
-        name: 'Employee',
+        name: 'EmployeeAdd',
         meta: { title: '添加员工', icon: 'user', noCache: true }
       }
     ]
@@ -138,7 +138,7 @@ export const constantRoutes = [
       {
         path: 'index',
         component: () => import('@/views/order/index'),
-        name: 'Profile',
+        name: 'Order',
         meta: { title: '订单管理', icon: 'documentation', noCache: true }
       }
     ]
@@ -164,7 +164,7 @@ export const constantRoutes = [
       {
         path: 'index',
         component: () => import('@/views/cost/index'),
-        name: 'Profile',
+        name: 'Cost',
         meta: { title: '收支管理', icon: 'money', noCache: true }
       }
     ]

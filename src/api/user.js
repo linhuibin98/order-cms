@@ -88,3 +88,12 @@ export function getOrders({ id, page, limit }) {
     }
   })
 }
+
+export function getChartOrderData(id, day = 7) {
+  return request({
+    url: `/store/order/day/${id}`,
+    params: {
+      day
+    }
+  })
+}

@@ -1,31 +1,45 @@
 <template>
   <div class="dashboard-container">
-    <div>你好</div>
+    <LineOrder width="100%" height="100%" :series-data="seriesData" :x-data="xData" />
   </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
-// import adminDashboard from './admin'
-// import editorDashboard from './editor'
+import LineOrder from '@/components/Charts/LineOrder.vue'
+import { getChartOrderData } from '@/api/user.js'
 
 export default {
   name: 'Dashboard',
-  // components: { adminDashboard, editorDashboard },
+  components: { LineOrder },
   data() {
     return {
-      currentRole: 'adminDashboard'
+      currentRole: 'adminDashboard',
+      seriesData: [],
+      xData: []
     }
   },
   computed: {
-    ...mapGetters([
-      'roles'
-    ])
+    ...mapGetters(['roles', 'id'])
   },
-  created() {
+  async created() {
     if (!this.roles.includes('admin')) {
       this.currentRole = 'editorDashboard'
+    }
+    const result = await getChartOrderData(this.id)
+    if (result.errorCode === 0) {
+      const { seriesData, xData } = result
+      this.seriesData = seriesData
+      this.xData = xData
     }
   }
 }
 </script>
+
+<style scoped>
+.dashboard-container {
+  position: relative;
+  width: 100%;
+  height: calc(100vh - 84px);
+}
+</style>

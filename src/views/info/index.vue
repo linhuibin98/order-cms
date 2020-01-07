@@ -25,8 +25,8 @@
         <el-input v-model="formData.distributionCode" type="text" :disabled="editable" />
       </el-form-item>
       <el-form-item v-show="!editable" class="form_btn">
-        <el-button @click="handleCancel">取消修改</el-button>
-        <el-button @click="handleConfirm">确认修改</el-button>
+        <el-button type="warning" @click="handleCancel">取消修改</el-button>
+        <el-button type="primary" @click="handleConfirm">确认修改</el-button>
       </el-form-item>
     </el-form>
   </div>

@@ -100,7 +100,6 @@ export default {
       this.dialogTableVisible = true
     },
     changePageEvent() {
-      console.log(this.page)
       this.reqOrders()
     },
     handleNext() {
