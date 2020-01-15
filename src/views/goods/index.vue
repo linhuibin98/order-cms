@@ -37,7 +37,11 @@
           <el-input v-model="currentGoods.food_name" width="200px" />
         </el-form-item>
         <el-form-item label="价格">
-          <el-input v-model="currentGoods.food_price" />
+          <el-input v-model="currentGoods.food_price" size="mini">
+            <template slot="append">
+              元
+            </template>
+          </el-input>
         </el-form-item>
         <el-form-item label="原料">
           <el-input v-model="currentGoods.food_ingredient" type="textarea" />
@@ -217,7 +221,9 @@ export default {
 
 <style lang="scss">
 .goods_container {
-  margin: 15px 30px;
+  margin: 10px 20px;
+  padding: 10px 10px;
+  background-color: #fff;
 
   .add {
     text-align: right;

@@ -1,7 +1,7 @@
 <template>
   <div class="info_container">
     <div class="update_btn">
-      <el-button @click="handleEidt">{{ editable ? '编辑' : '取消' }}</el-button>
+      <el-button type="primary" @click="handleEidt">{{ editable ? '编辑' : '取消' }}</el-button>
     </div>
     <el-form
       :model="formData"
@@ -19,10 +19,14 @@
         <el-input v-model="formData.notice" type="textarea" :disabled="editable" />
       </el-form-item>
       <el-form-item label="起送金额">
-        <el-input v-model="formData.startupCost" type="text" :disabled="editable" />
+        <el-input v-model="formData.startupCost" type="text" :disabled="editable">
+          <template slot="suffix">元</template>
+        </el-input>
       </el-form-item>
       <el-form-item label="配送费">
-        <el-input v-model="formData.distributionCode" type="text" :disabled="editable" />
+        <el-input v-model="formData.distributionCode" type="text" :disabled="editable">
+          <template slot="suffix">元</template>
+        </el-input>
       </el-form-item>
       <el-form-item v-show="!editable" class="form_btn">
         <el-button type="warning" @click="handleCancel">取消修改</el-button>
@@ -103,7 +107,9 @@ export default {
 
 <style lang="scss">
 .info_container {
-  margin: 50px;
+  margin: 30px;
+  padding: 20px;
+  background-color: #fff;
 
   .update_btn {
     text-align: right;

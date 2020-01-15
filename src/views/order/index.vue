@@ -114,7 +114,10 @@ export default {
 
 <style lang="scss">
 .orders_container {
-  margin: 15px 30px;
+  margin: 10px 10px;
+  padding: 5px 10px;
+  background-color: #fff;
+
   .title {
     h1 {
       text-align: center;
