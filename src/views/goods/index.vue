@@ -80,7 +80,16 @@ export default {
       tableData: [],
       dialogVisible: false,
       dialogFormVisible: false,
-      currentGoods: {}, // 当前操作所在行的信息
+      initGoods: {
+        food_name: '',
+        food_price: '',
+        food_ingredient: '',
+        food_commend: 0,
+        food_cat_name: ''
+      },
+      currentGoods: {
+
+      }, // 当前操作所在行的信息
       dialogTitle: '',
       dialogBtnText: '',
       iptVisible: false, // 添加分类输入框显示、隐藏
@@ -108,10 +117,7 @@ export default {
     // 确认删除
     async confimDelete() {
       const { food_id, food_cat_name } = this.currentGoods
-      const res = await deleteGoods({
-        id: this.id,
-        data: { food_id, food_cat_name }
-      })
+      const res = await deleteGoods({ food_id, food_cat_name })
 
       const type = res.errorCode === 0 ? 'success' : 'error'
       this.$message({
@@ -143,6 +149,15 @@ export default {
 
     // 点击编辑并确认修改、添加商品
     async confirmChange() {
+      const flag = Object.keys(this.currentGoods).some(item => this.currentGoods[item] === '')
+
+      if (flag) {
+        return this.$message({
+          message: '不能为空',
+          type: 'warning'
+        })
+      }
+
       this.dialogFormVisible = false
       this.currentGoods.food_commend = this.currentGoods.food_commend ? 1 : 0
 
@@ -150,17 +165,14 @@ export default {
 
       if (this.dialogTitle === '商品添加') {
         // 处理商品添加
-        res = await addGoods({ id: this.id, data: this.currentGoods })
+        res = await addGoods(this.currentGoods)
 
         if (res.errorCode === 0) {
           this.tableData = res.data
         }
       } else {
         // 处理修改商品信息
-        res = await updateGoodsInfo({
-          id: this.id,
-          data: this.currentGoods
-        })
+        res = await updateGoodsInfo(this.currentGoods)
 
         if (res.errorCode === 0) {
           const cloneGoods = JSON.parse(JSON.stringify(this.currentGoods))
@@ -181,7 +193,7 @@ export default {
     },
     // 添加商品
     handleAdd() {
-      this.currentGoods = {}
+      this.currentGoods = { ...this.initGoods }
       this.dialogTitle = '商品添加'
       this.dialogBtnText = '添加'
       this.dialogFormVisible = true
