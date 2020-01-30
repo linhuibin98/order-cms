@@ -1,19 +1,25 @@
 <template>
   <div class="goods_container">
     <div class="add">
+      <el-input v-model="q" class="input" /><el-button type="primary" @click="handleSearch">搜索商品</el-button>
       <el-button type="primary" @click="handleAdd">添加商品</el-button>
     </div>
     <div class="title">
       <h1>商品管理</h1>
     </div>
     <el-table :data="tableData" border style="width: 100%" max-height="500">
-      <el-table-column type="index" />
+      <el-table-column type="index" label="序号" />
       <el-table-column prop="food_name" label="名称" />
-      <el-table-column prop="food_price" label="价格" />
+      <el-table-column prop="food_price" label="价格" sortable />
       <el-table-column prop="food_ingredient" label="原料" />
-      <el-table-column prop="food_cat_name" label="分类" />
+      <el-table-column
+        prop="food_cat_name"
+        label="分类"
+        :filters="cates"
+        :filter-method="catFilterHandler"
+      />
       <el-table-column prop="food_commend" label="推荐" />
-      <el-table-column prop="food_sales" label="销量" />
+      <el-table-column prop="food_sales" label="销量" sortable />
       <el-table-column label="操作" width="150px">
         <template slot-scope="scope">
           <el-button size="small" @click="handleEdit(scope)">编辑</el-button>
@@ -48,7 +54,7 @@
         </el-form-item>
         <el-form-item label="分类" class="classify">
           <el-select v-model="currentGoods.food_cat_name" placeholder="选择分类">
-            <el-option v-for="(item, index) in cates" :key="index" :label="item" :value="item" />
+            <el-option v-for="(item, index) in cates" :key="index" :label="item.value" :value="item.value" />
           </el-select>
           <el-input
             v-show="iptVisible"
@@ -71,7 +77,7 @@
 </template>
 
 <script>
-import { getGoods, updateGoodsInfo, deleteGoods, addGoods } from '@/api/user'
+import { getGoods, updateGoodsInfo, deleteGoods, addGoods, searchGood } from '@/api/user'
 import { mapGetters } from 'vuex'
 
 export default {
@@ -95,7 +101,8 @@ export default {
       iptVisible: false, // 添加分类输入框显示、隐藏
       btnText: '添加分类',
       newClassifyName: '',
-      cates: [] // 商品分类集合
+      cates: [], // 商品分类集合
+      q: ''
     }
   },
   computed: {
@@ -110,7 +117,9 @@ export default {
         item.food_commend = item.food_commend ? '是' : '否'
       })
       this.tableData = goods
-      this.cates = cates
+      this.cates = cates.map(item => {
+        return { text: item, value: item }
+      })
     })()
   },
   methods: {
@@ -203,7 +212,7 @@ export default {
       if (this.iptVisible) {
         // 输入内容不为空
         if (this.newClassifyName !== '') {
-          this.cates.unshift(this.newClassifyName)
+          this.cates.unshift({ text: this.newClassifyName, value: this.newClassifyName })
           this.currentGoods['food_cat_name'] = this.newClassifyName
           this.$message({
             message: '添加成功',
@@ -226,6 +235,15 @@ export default {
     dialogCloseEvent() {
       this.btnText = '添加分类'
       this.iptVisible = false
+    },
+    catFilterHandler(value, row, column) {
+      const property = column['property']
+      return row[property] === value
+    },
+    async handleSearch() {
+      if (this.q === '') return
+      const result = await searchGood(this.q)
+      this.tableData = result.data
     }
   }
 }
@@ -238,7 +256,12 @@ export default {
   background-color: #fff;
 
   .add {
-    text-align: right;
+    display: flex;
+
+    .input {
+      width: 15vw;
+      margin-right: 15px;
+    }
   }
 
   .title {

@@ -77,6 +77,17 @@ export function addGoods({ id, data }) {
   });
 }
 
+// 搜索商品
+export function searchGood(q) {
+  return request({
+    url: "/goods/search",
+    method: "get",
+    params: {
+      q
+    }
+  });
+}
+
 // 获取订单
 export function getOrders({ id, page, limit }) {
   return request({

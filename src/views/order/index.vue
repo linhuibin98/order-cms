@@ -9,7 +9,7 @@
       :cell-style="{textAlign: 'center'}"
       :header-cell-style="{textAlign: 'center'}"
     >
-      <el-table-column type="index" :index="computeIndex" />
+      <el-table-column type="index" :index="computeIndex" label="序号" />
       <el-table-column prop="num" label="订单编号" />
       <el-table-column prop="userName" label="买家姓名" />
       <el-table-column prop="userPhone" label="买家手机号" />
@@ -39,7 +39,7 @@
         <el-table-column prop="price" label="单价" />
         <el-table-column label="总价">
           <template slot-scope="scope">
-            <span>{{ scope.row.num * scope.row.price }}</span>
+            <span>{{ (scope.row.num * scope.row.price).toFixed(2) }}</span>
           </template>
         </el-table-column>
       </el-table>
