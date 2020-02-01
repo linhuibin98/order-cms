@@ -16,10 +16,10 @@
       <el-table-column prop="position" label="职位" />
       <el-table-column prop="salary" label="月薪" />
       <el-table-column prop="remark" label="备注" />
-      <el-table-column label="操作">
+      <el-table-column label="操作" width="150px">
         <template slot-scope="scope">
-          <el-button type="primary" @click="handleEdit(scope)">编辑</el-button>
-          <el-button type="danger" @click="handleDelete(scope)">删除</el-button>
+          <el-button type="primary" size="small" @click="handleEdit(scope)">编辑</el-button>
+          <el-button type="danger" size="small" @click="handleDelete(scope)">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -73,42 +73,47 @@ export default {
           num: '001',
           position: '经理',
           salary: '19999',
-          remark: ''
+          remark: '执行总经理'
         },
         {
           name: '李四',
           sex: '男',
           num: '002',
           position: '厨师长',
-          salary: '12222'
+          salary: '12222',
+          remark: '厨师长'
         },
         {
           name: '王五',
           sex: '男',
           num: '003',
           position: '厨师',
-          salary: '9999'
+          salary: '9999',
+          remark: '1号炒锅师傅'
         },
         {
           name: '严无',
           sex: '男',
           num: '004',
           position: '厨师',
-          salary: '19999'
+          salary: '19999',
+          remark: '2号炒锅师傅'
         },
         {
           name: '贾晓晓',
           sex: '女',
           num: '005',
           position: '服务员',
-          salary: '6666'
+          salary: '6666',
+          remark: '服务员'
         },
         {
           name: '甄世大',
           sex: '男',
           num: '006',
           position: '厨师',
-          salary: '9999'
+          salary: '9999',
+          remark: '蒸锅师傅'
         },
         {
           name: '白月光',
@@ -278,6 +283,7 @@ export default {
   .title {
     h1 {
       text-align: center;
+      font-size: 28px;
     }
   }
   .el-pagination {

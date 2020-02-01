@@ -1,13 +1,13 @@
 <template>
   <div class="goods_container">
+    <div class="title">
+      <h1>商品管理</h1>
+    </div>
     <div class="add">
       <el-input v-model="q" class="input" /><el-button type="primary" @click="handleSearch">搜索商品</el-button>
       <el-button type="primary" @click="handleAdd">添加商品</el-button>
     </div>
-    <div class="title">
-      <h1>商品管理</h1>
-    </div>
-    <el-table :data="tableData" border style="width: 100%" max-height="500">
+    <el-table :data="tableData" border style="width: 100%" max-height="480">
       <el-table-column type="index" label="序号" />
       <el-table-column prop="food_name" label="名称" />
       <el-table-column prop="food_price" label="价格" sortable />
@@ -22,7 +22,7 @@
       <el-table-column prop="food_sales" label="销量" sortable />
       <el-table-column label="操作" width="150px">
         <template slot-scope="scope">
-          <el-button size="small" @click="handleEdit(scope)">编辑</el-button>
+          <el-button type="primary" size="small" @click="handleEdit(scope)">编辑</el-button>
           <el-button type="danger" size="small" @click="handleDelete(scope)">删除</el-button>
         </template>
       </el-table-column>
@@ -257,6 +257,7 @@ export default {
 
   .add {
     display: flex;
+    margin-bottom: 15px;
 
     .input {
       width: 15vw;
@@ -268,6 +269,7 @@ export default {
     text-align: center;
     h1 {
       margin-top: 10px;
+      font-size: 28px;
     }
   }
 
