@@ -7,7 +7,7 @@ import { getToken } from "@/utils/auth";
 const service = axios.create({
   // http://www.linhuibin.com/api/public/v1
   // http://127.0.0.1:8080/api/public/v1
-  baseURL: "http://127.0.0.1:8080/api/public/v1", // url = base url + request url
+  baseURL: "http://www.linhuibin.com/api/public/v1", // url = base url + request url
   // withCredentials: true, // send cookies when cross-domain requests
   timeout: 5000 // request timeout
 });

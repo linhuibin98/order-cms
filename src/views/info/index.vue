@@ -33,13 +33,13 @@
         <img :src="formData.pic" alt="logo">
         <el-upload
           ref="upload"
-          :action="`http://www.linhuibin.com/api/public/v1/store/logo_upload?id=${id}`"
+          :action="`http://118.31.2.223:8080/api/public/v1/store/logo_upload?id=${id}`"
           list-type="picture-card"
           :auto-upload="false"
           :limit="1"
-          :on-remove="handleRemove"
           :on-change="handleChange"
           class="upload"
+          :class="{hide:editable}"
         >
           <i slot="default" class="el-icon-plus" />
           <div slot="file" slot-scope="{file}">
@@ -70,7 +70,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 import { getBaseInfo, updateBaseInfo } from '@/api/user'
 
 export default {
@@ -110,6 +110,7 @@ export default {
     })()
   },
   methods: {
+    ...mapActions('user', ['setAvatar']),
     handleEidt() {
       this.editable = !this.editable
 
@@ -139,8 +140,12 @@ export default {
         })
       }
     },
-    submitUpload() {
-      this.$refs.upload.submit()
+    handleChange(file, fileList) {
+      if (file.status === 'success') {
+        this.formData.pic = file.response.path
+        this.setAvatar(file.response.path)
+        this.$refs.upload.clearFiles()
+      }
     }
   }
 }
@@ -198,6 +203,10 @@ export default {
       margin-left: 20px;
     }
   }
+}
+
+.hide .el-upload--picture-card {
+  display: none;
 }
 
 .el-upload--picture-card {
