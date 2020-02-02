@@ -12,22 +12,55 @@
       <div class="form_title">
         <h1>店铺信息</h1>
       </div>
-      <el-form-item label="店铺名">
+      <el-form-item label="店铺名:">
         <el-input v-model="formData.name" type="text" :disabled="editable" />
       </el-form-item>
-      <el-form-item label="店铺公告">
+      <el-form-item label="店铺公告:">
         <el-input v-model="formData.notice" type="textarea" :disabled="editable" />
       </el-form-item>
-      <el-form-item label="起送金额">
+      <el-form-item label="起送金额:">
         <el-input v-model="formData.startupCost" type="text" :disabled="editable">
           <template slot="suffix">元</template>
         </el-input>
       </el-form-item>
-      <el-form-item label="配送费">
+      <el-form-item label="配送费:">
         <el-input v-model="formData.distributionCode" type="text" :disabled="editable">
           <template slot="suffix">元</template>
         </el-input>
       </el-form-item>
+      <div class="logo">
+        <span>LOGO:</span>
+        <img :src="formData.pic" alt="logo">
+        <el-upload
+          ref="upload"
+          :action="`http://www.linhuibin.com/api/public/v1/store/logo_upload?id=${id}`"
+          list-type="picture-card"
+          :auto-upload="false"
+          :limit="1"
+          :on-remove="handleRemove"
+          :on-change="handleChange"
+          class="upload"
+        >
+          <i slot="default" class="el-icon-plus" />
+          <div slot="file" slot-scope="{file}">
+            <img
+              class="el-upload-list__item-thumbnail"
+              :src="file.url"
+              alt="logo"
+            >
+            <span class="el-upload-list__item-actions">
+              <span
+                v-if="!disabled"
+                class="el-upload-list__item-delete"
+              >
+                <i class="el-icon-delete" @click="handleRemove(file)" />
+              </span>
+            </span>
+          </div>
+          <el-dialog :visible.sync="dialogVisible">
+            <img width="100%" :src="dialogImageUrl" alt="">
+          </el-dialog>
+        </el-upload></div>
       <el-form-item v-show="!editable" class="form_btn">
         <el-button type="warning" @click="handleCancel">取消修改</el-button>
         <el-button type="primary" @click="handleConfirm">确认修改</el-button>
@@ -50,7 +83,10 @@ export default {
         startupCost: 0
       },
       oldData: {},
-      editable: true
+      editable: true,
+      fileList: [],
+      dialogVisible: false,
+      dialogImageUrl: ''
     }
   },
   computed: {
@@ -59,13 +95,14 @@ export default {
   created() {
     (async() => {
       const res = await getBaseInfo(this.id)
-      const { name, notice, distributionCode, startupCost } = res.data
+      const { name, notice, distributionCode, startupCost, pic } = res.data
 
       const data = {
         name,
         notice,
         distributionCode,
-        startupCost
+        startupCost,
+        pic
       }
 
       this.formData = data
@@ -88,6 +125,7 @@ export default {
 
     async handleConfirm() {
       const res = await updateBaseInfo({ id: this.id, data: this.formData })
+      this.$refs.upload.submit()
       if (res.errorCode === 0) {
         this.$message({
           message: res.message,
@@ -100,6 +138,9 @@ export default {
           type: 'error'
         })
       }
+    },
+    submitUpload() {
+      this.$refs.upload.submit()
     }
   }
 }
@@ -107,6 +148,7 @@ export default {
 
 <style lang="scss">
 .info_container {
+  height: 576px;
   margin: 30px;
   padding: 20px;
   background-color: #fff;
@@ -117,6 +159,9 @@ export default {
 
   .form_title {
     text-align: center;
+    h1 {
+      font-size: 28px;
+    }
   }
 
   .form_btn {
@@ -136,6 +181,44 @@ export default {
     border: none;
     color: #666;
     cursor: pointer;
+  }
+
+  .logo {
+    display: flex;
+    align-items: center;
+    span {
+      margin-right: 20px;
+    }
+    img {
+      border: 1px solid #eee;
+      width: 65px;
+    }
+    .upload {
+      display: inline-block !important;
+      margin-left: 20px;
+    }
+  }
+}
+
+.el-upload--picture-card {
+  position: relative;
+  width: 65px;
+  height: 65px;
+
+  .el-icon-plus {
+    position: absolute;
+    top: 18px;
+    left: 18px;
+  }
+}
+
+.el-upload-list__item {
+  width: 65px !important;
+  height: 65px !important;
+
+  img {
+    width: 65px;
+    height: 65px;
   }
 }
 </style>
