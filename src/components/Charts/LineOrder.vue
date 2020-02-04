@@ -25,12 +25,8 @@ export default {
       type: String,
       default: '200px'
     },
-    seriesData: {
-      type: Array,
-      default: () => ({})
-    },
-    xData: {
-      type: Array,
+    lineData: {
+      type: Object,
       default: () => ({})
     }
   },
@@ -40,8 +36,8 @@ export default {
     }
   },
   watch: {
-    seriesData(newValue, oldValue) {
-      this.initChart(this.xData, newValue)
+    lineData(newValue, oldValue) {
+      this.initChart(this.lineData)
     }
   },
   beforeDestroy() {
@@ -52,37 +48,93 @@ export default {
     this.chart = null
   },
   methods: {
-    initChart(xData, seriesData) {
+    initChart(lineData) {
       this.chart = echarts.init(document.getElementById(this.id))
       const options = {
         title: {
-          text: '近七日订单数'
+          text: '数据走势'
         },
         xAxis: {
           type: 'category',
-          data: xData
+          data: lineData.xData
         },
         yAxis: {
           type: 'value'
         },
         series: [
           {
-            data: seriesData,
+            name: '周订单',
+            data: lineData.weekOrderData,
             type: 'line',
             itemStyle: {
               normal: { label: { show: true }}
+            },
+            markPoint: {
+              data: [
+                { name: '最大值', type: 'max' },
+                { name: '最小值', type: 'min' }
+              ]
+            }
+          },
+          {
+            name: '总订单',
+            data: lineData.weekTotalOrderData,
+            type: 'line',
+            itemStyle: {
+              normal: { label: { show: true }}
+            },
+            markPoint: {
+              data: [
+                { name: '最大值', type: 'max' },
+                { name: '最小值', type: 'min' }
+              ]
+            }
+          },
+          {
+            name: '周浏览',
+            data: lineData.weekVisitData,
+            type: 'line',
+            itemStyle: {
+              normal: { label: { show: true }}
+            },
+            markPoint: {
+              data: [
+                { name: '最大值', type: 'max' },
+                { name: '最小值', type: 'min' }
+              ]
+            }
+          },
+          {
+            name: '总浏览',
+            data: lineData.WeekTotalVisitData,
+            type: 'line',
+            itemStyle: {
+              normal: { label: { show: true }}
+            },
+            markPoint: {
+              data: [
+                { name: '最大值', type: 'max' },
+                { name: '最小值', type: 'min' }
+              ]
             }
           }
         ],
+        legend: {
+          data: ['周订单', '总订单', '周浏览', '总浏览']
+        },
         toolTip: {
+          trigger: 'axis'
+        },
+        toolbox: {
           show: true,
-          trigger: 'item',
-          axisPointer: {
-            type: 'line',
-            axis: 'auto'
-          },
-          label: {
-            show: true
+          feature: {
+            dataZoom: {
+              yAxisIndex: 'none'
+            },
+            dataView: { readOnly: false },
+            magicType: { type: ['line', 'bar'] },
+            restore: {},
+            saveAsImage: {}
           }
         }
       }
