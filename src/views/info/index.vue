@@ -153,7 +153,7 @@ export default {
 
 <style lang="scss">
 .info_container {
-  height: 576px;
+  height: 550px;
   margin: 30px;
   padding: 20px;
   background-color: #fff;
@@ -170,6 +170,7 @@ export default {
   }
 
   .form_btn {
+    margin-top: 10px;
     text-align: right;
   }
 
