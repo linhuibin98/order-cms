@@ -4,18 +4,16 @@
       <h1>商品管理</h1>
     </div>
     <div class="add">
-      <div class="left">
-        <el-input v-model="q" class="input" /><el-button type="primary" @click="handleSearch">搜索商品</el-button>
-        <el-dropdown @command="handleCommand">
-          <el-button type="primary">
-            批量操作<i class="el-icon-arrow-down el-icon--right" />
-          </el-button>
-          <el-dropdown-menu slot="dropdown">
-            <el-dropdown-item icon="el-icon-delete" command="delete">删除选中</el-dropdown-item>
-            <el-dropdown-item icon="el-icon-remove" command="cancel">取消选择</el-dropdown-item>
-          </el-dropdown-menu>
-        </el-dropdown>
-      </div>
+      <el-input v-model="q" class="input" /><el-button type="primary" @click="handleSearch">搜索商品</el-button>
+      <el-dropdown @command="handleCommand">
+        <el-button type="primary">
+          批量操作<i class="el-icon-arrow-down el-icon--right" />
+        </el-button>
+        <el-dropdown-menu slot="dropdown">
+          <el-dropdown-item icon="el-icon-delete" command="delete">删除选中</el-dropdown-item>
+          <el-dropdown-item icon="el-icon-remove" command="cancel">取消选择</el-dropdown-item>
+        </el-dropdown-menu>
+      </el-dropdown>
       <el-button type="primary" @click="handleAdd">添加商品</el-button>
     </div>
     <el-table
@@ -294,12 +292,14 @@ export default {
 
   .add {
     display: flex;
-    justify-content: space-between;
     margin-bottom: 15px;
 
     .input {
       width: 15vw;
       margin-right: 15px;
+    }
+    .el-dropdown {
+      margin: 0 10px;
     }
   }
 
