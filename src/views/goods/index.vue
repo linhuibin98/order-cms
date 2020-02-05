@@ -3,8 +3,8 @@
     <div class="title">
       <h1>商品管理</h1>
     </div>
-    <div class="add">
-      <el-input v-model="q" class="input" /><el-button type="primary" @click="handleSearch">搜索商品</el-button>
+    <div class="tool">
+      <el-input v-model="q" class="input" placeholder="输入搜索内容" /><el-button type="primary" @click="handleSearch">搜索商品</el-button>
       <el-dropdown @command="handleCommand">
         <el-button type="primary">
           批量操作<i class="el-icon-arrow-down el-icon--right" />
@@ -290,7 +290,7 @@ export default {
   padding: 10px 10px;
   background-color: #fff;
 
-  .add {
+  .tool {
     display: flex;
     margin-bottom: 15px;
 

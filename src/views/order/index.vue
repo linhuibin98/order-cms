@@ -3,6 +3,15 @@
     <div class="title">
       <h1>订单管理</h1>
     </div>
+    <div class="tool">
+      <el-input v-model="q" class="input" placeholder="输入搜索内容">
+        <el-select slot="append" v-model="select">
+          <el-option label="订单号" value="订单号" default />
+          <el-option label="买家姓名" value="买家姓名" />
+        </el-select>
+      </el-input>
+      <el-button type="primary" @click="handleSearch">搜索订单</el-button>
+    </div>
     <el-table
       :data="tableData"
       border
@@ -60,7 +69,9 @@ export default {
       dialogTableVisible: false,
       total: 0, // 总数据数量
       page: 1, // 当前所在页数
-      limit: 6 // 每页显示多少条数据
+      limit: 6, // 每页显示多少条数据
+      select: '订单号', // 搜索分类
+      q: '' // 搜索值
     }
   },
   computed: {
@@ -107,6 +118,10 @@ export default {
     },
     handlePrev() {
       this.page -= 1
+    },
+    // 搜索订单
+    handleSearch() {
+
     }
   }
 }
@@ -122,6 +137,22 @@ export default {
     h1 {
       text-align: center;
       font-size: 28px;
+    }
+  }
+  .tool {
+    display: flex;
+    margin-bottom: 15px;
+
+    .input {
+      width: 20vw;
+      margin-right: 15px;
+
+      .el-input-group__append {
+        width: 7vw;
+      }
+    }
+    .el-dropdown {
+      margin: 0 10px;
     }
   }
   .el-pagination {
