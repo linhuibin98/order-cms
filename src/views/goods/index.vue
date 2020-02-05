@@ -4,10 +4,28 @@
       <h1>商品管理</h1>
     </div>
     <div class="add">
-      <el-input v-model="q" class="input" /><el-button type="primary" @click="handleSearch">搜索商品</el-button>
+      <div class="left">
+        <el-input v-model="q" class="input" /><el-button type="primary" @click="handleSearch">搜索商品</el-button>
+        <el-dropdown @command="handleCommand">
+          <el-button type="primary">
+            批量操作<i class="el-icon-arrow-down el-icon--right" />
+          </el-button>
+          <el-dropdown-menu slot="dropdown">
+            <el-dropdown-item icon="el-icon-delete" command="delete">删除选中</el-dropdown-item>
+            <el-dropdown-item icon="el-icon-remove" command="cancel">取消选择</el-dropdown-item>
+          </el-dropdown-menu>
+        </el-dropdown>
+      </div>
       <el-button type="primary" @click="handleAdd">添加商品</el-button>
     </div>
-    <el-table :data="tableData" border style="width: 100%" max-height="480">
+    <el-table
+      ref="multipleTable"
+      :data="tableData"
+      border
+      style="width: 100%"
+      max-height="480"
+      @selection-change="handleSelectionChange"
+    >
       <el-table-column
         type="selection"
         width="45"
@@ -106,7 +124,8 @@ export default {
       btnText: '添加分类',
       newClassifyName: '',
       cates: [], // 商品分类集合
-      q: ''
+      q: '',
+      multipleSelection: [] // 选中的数据
     }
   },
   computed: {
@@ -248,6 +267,20 @@ export default {
       if (this.q === '') return
       const result = await searchGood(this.q)
       this.tableData = result.data
+    },
+    // 批量操作
+    handleCommand(command) {
+      if (!this.multipleSelection.length) return
+
+      if (command === 'delete') {
+        this.dialogVisible = true
+      } else {
+        this.$refs.multipleTable.clearSelection()
+      }
+    },
+    // 选中状态改变
+    handleSelectionChange(val) {
+      this.multipleSelection = val
     }
   }
 }
@@ -261,6 +294,7 @@ export default {
 
   .add {
     display: flex;
+    justify-content: space-between;
     margin-bottom: 15px;
 
     .input {
