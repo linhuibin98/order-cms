@@ -137,25 +137,27 @@ export default {
           salary: '199999'
         },
         {
-          name: '王强',
-          sex: '男',
+          name: '段秀秀',
+          sex: '女',
           num: '010',
-          position: '经理',
-          salary: '19999'
+          position: '洗完工',
+          salary: '5555',
+          remark: '有补贴'
         },
         {
-          name: '王强',
+          name: '光头强',
           sex: '男',
           num: '011',
           position: '经理',
-          salary: '19999'
+          salary: '7962'
         },
         {
-          name: '王强',
+          name: '熊大',
           sex: '男',
           num: '012',
-          position: '经理',
-          salary: '19999'
+          position: '凉菜师傅',
+          salary: '12222',
+          remark: '有补贴'
         },
         {
           name: '王强',
@@ -225,7 +227,7 @@ export default {
       }, // 当前查看订单详情数据
       currentEditIndex: 0,
       dialogFormVisible: false,
-      total: 0, // 总数据数量
+      total: 118, // 总数据数量
       page: 1, // 当前所在页数
       limit: 6, // 每页显示多少条数据,
       formLabelWidth: '50px'
@@ -237,7 +239,7 @@ export default {
     }
   },
   created() {
-    this.total = this.tableData.length
+    // this.total = this.tableData.length
   },
   methods: {
     changePageEvent() {},

@@ -1,7 +1,7 @@
 <template>
   <div class="orders_container">
     <div class="title">
-      <h1>员工管理</h1>
+      <h1>库存管理</h1>
     </div>
     <el-table
       :data="tableData"
@@ -9,17 +9,22 @@
       :cell-style="{textAlign: 'center'}"
       :header-cell-style="{textAlign: 'center'}"
     >
-      <el-table-column type="index" :index="computeIndex" label="序号" />
-      <el-table-column prop="name" label="姓名" />
-      <el-table-column prop="sex" label="性别" />
-      <el-table-column prop="num" label="工号" />
-      <el-table-column prop="position" label="职位" />
-      <el-table-column prop="salary" label="月薪" />
-      <el-table-column prop="remark" label="备注" />
-      <el-table-column label="操作">
+      <el-table-column
+        type="selection"
+        width="45"
+      />
+      <el-table-column type="index" :index="computeIndex" label="序号" width="50px" />
+      <el-table-column prop="num" label="编号" />
+      <el-table-column prop="type" label="类型" />
+      <el-table-column prop="name" label="名称" />
+      <el-table-column prop="storage" label="库存量" />
+      <el-table-column prop="unit" label="单位" />
+      <el-table-column prop="time" label="最近修改" />
+      <el-table-column prop="roleName" label="操作人" />
+      <el-table-column label="操作" width="150px">
         <template slot-scope="scope">
-          <el-button type="primary" @click="handleEdit(scope)">编辑</el-button>
-          <el-button type="danger" @click="handleDelete(scope)">删除</el-button>
+          <el-button type="primary" size="small" @click="handleEdit(scope)">编辑</el-button>
+          <el-button type="danger" size="small" @click="handleDelete(scope)">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -35,23 +40,26 @@
     />
     <el-dialog title="信息编辑" :visible.sync="dialogFormVisible">
       <el-form :model="currentEdit">
-        <el-form-item label="姓名" :label-width="formLabelWidth">
+        <el-form-item label="编号" :label-width="formLabelWidth">
+          <el-input v-model="currentEdit.num" disabled />
+        </el-form-item>
+        <el-form-item label="类型" :label-width="formLabelWidth">
+          <el-input v-model="currentEdit.type" autocomplete="off" />
+        </el-form-item>
+        <el-form-item label="名称" :label-width="formLabelWidth">
           <el-input v-model="currentEdit.name" autocomplete="off" />
         </el-form-item>
-        <el-form-item label="性别" :label-width="formLabelWidth">
-          <el-input v-model="currentEdit.sex" autocomplete="off" />
+        <el-form-item label="库存量" :label-width="formLabelWidth">
+          <el-input v-model="currentEdit.storage" autocomplete="off" />
         </el-form-item>
-        <el-form-item label="工号" :label-width="formLabelWidth">
-          <el-input v-model="currentEdit.num" autocomplete="off" />
+        <el-form-item label="单位" :label-width="formLabelWidth">
+          <el-input v-model="currentEdit.unit" autocomplete="off" />
         </el-form-item>
-        <el-form-item label="职位" :label-width="formLabelWidth">
-          <el-input v-model="currentEdit.position" autocomplete="off" />
+        <el-form-item label="最近修改" :label-width="formLabelWidth">
+          <el-input v-model="currentEdit.time" disabled />
         </el-form-item>
-        <el-form-item label="月薪" :label-width="formLabelWidth">
-          <el-input v-model="currentEdit.salary" autocomplete="off" />
-        </el-form-item>
-        <el-form-item label="备注" :label-width="formLabelWidth">
-          <el-input v-model="currentEdit.remark" autocomplete="off" />
+        <el-form-item label="操作人" :label-width="formLabelWidth">
+          <el-input v-model="currentEdit.roleName" disabled />
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -68,145 +76,85 @@ export default {
     return {
       tableData: [
         {
-          name: '王强',
-          sex: '男',
-          num: '001',
-          position: '经理',
-          salary: '19999',
-          remark: ''
+          num: 10001,
+          type: '食材',
+          name: '萝卜',
+          storage: '118',
+          unit: '斤',
+          time: '2018-08-02',
+          roleName: '经理'
         },
         {
-          name: '李四',
-          sex: '男',
-          num: '002',
-          position: '厨师长',
-          salary: '12222'
+          num: 10002,
+          type: '食材',
+          name: '鸡',
+          storage: '10',
+          unit: '只',
+          time: '2019-08-02',
+          roleName: '小明'
         },
         {
-          name: '王五',
-          sex: '男',
-          num: '003',
-          position: '厨师',
-          salary: '9999'
+          num: 10003,
+          type: '食材',
+          name: '鱼',
+          storage: '11',
+          unit: '条',
+          time: '2020-01-02',
+          roleName: '王强'
         },
         {
-          name: '严无',
-          sex: '男',
-          num: '004',
-          position: '厨师',
-          salary: '19999'
+          num: 10004,
+          type: '食材',
+          name: '鸭',
+          storage: '18',
+          unit: '只',
+          time: '2020-01-06',
+          roleName: '王强'
         },
         {
-          name: '贾晓晓',
-          sex: '女',
-          num: '005',
-          position: '服务员',
-          salary: '6666'
+          num: 10005,
+          type: '用具',
+          name: '桌子',
+          storage: '33',
+          unit: '张',
+          time: '2018-08-02',
+          roleName: '王强'
         },
         {
-          name: '甄世大',
-          sex: '男',
-          num: '006',
-          position: '厨师',
-          salary: '9999'
+          num: 10006,
+          type: '用具',
+          name: '凳子',
+          storage: '188',
+          unit: '把',
+          time: '2018-08-02',
+          roleName: '王强'
         },
         {
-          name: '白月光',
-          sex: '男',
-          num: '007',
-          position: '服务员',
-          salary: '19999'
+          num: 10006,
+          type: '食材',
+          name: '洋葱',
+          storage: '8',
+          unit: '斤',
+          time: '2019-06-22',
+          roleName: '经理'
         },
         {
-          name: '邓邓等',
-          sex: '男',
-          num: '008',
-          position: '厨师',
-          salary: '19999'
+          num: 10007,
+          type: '清洗用品',
+          name: '洗洁精',
+          storage: '18',
+          unit: '瓶',
+          time: '2018-08-02',
+          roleName: '经理'
         },
         {
-          name: '奥特曼',
-          sex: '男',
-          num: '009',
-          position: '超人',
-          salary: '199999'
-        },
-        {
-          name: '王强',
-          sex: '男',
-          num: '010',
-          position: '经理',
-          salary: '19999'
-        },
-        {
-          name: '王强',
-          sex: '男',
-          num: '011',
-          position: '经理',
-          salary: '19999'
-        },
-        {
-          name: '王强',
-          sex: '男',
-          num: '012',
-          position: '经理',
-          salary: '19999'
-        },
-        {
-          name: '王强',
-          sex: '男',
-          num: '001',
-          position: '经理',
-          salary: '19999'
-        },
-        {
-          name: '王强',
-          sex: '男',
-          num: '001',
-          position: '经理',
-          salary: '19999'
-        },
-        {
-          name: '王强',
-          sex: '男',
-          num: '001',
-          position: '经理',
-          salary: '19999'
-        },
-        {
-          name: '王强',
-          sex: '男',
-          num: '001',
-          position: '经理',
-          salary: '19999'
-        },
-        {
-          name: '王强',
-          sex: '男',
-          num: '001',
-          position: '经理',
-          salary: '19999'
-        },
-        {
-          name: '王强',
-          sex: '男',
-          num: '001',
-          position: '经理',
-          salary: '19999'
-        },
-        {
-          name: '王强',
-          sex: '男',
-          num: '001',
-          position: '经理',
-          salary: '19999'
-        },
-        {
-          name: '王强',
-          sex: '男',
-          num: '001',
-          position: '经理',
-          salary: '19999'
+          num: 10008,
+          type: '清洗用品',
+          name: '消毒水',
+          storage: '66',
+          unit: '瓶',
+          time: '2018-09-16',
+          roleName: '经理'
         }
       ],
       currentEdit: {
@@ -220,10 +168,10 @@ export default {
       }, // 当前查看订单详情数据
       currentEditIndex: 0,
       dialogFormVisible: false,
-      total: 0, // 总数据数量
+      total: 118, // 总数据数量
       page: 1, // 当前所在页数
       limit: 6, // 每页显示多少条数据,
-      formLabelWidth: '50px'
+      formLabelWidth: '75px'
     }
   },
   computed: {
@@ -232,7 +180,7 @@ export default {
     }
   },
   created() {
-    this.total = this.tableData.length
+    // this.total = this.tableData.length
   },
   methods: {
     changePageEvent() {},
@@ -278,6 +226,7 @@ export default {
   .title {
     h1 {
       text-align: center;
+      font-size: 28px;
     }
   }
   .el-pagination {
