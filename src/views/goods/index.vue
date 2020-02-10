@@ -29,6 +29,7 @@
         width="45"
       />
       <el-table-column type="index" label="序号" width="50px" />
+      <el-table-column prop="food_id" label="编号" />
       <el-table-column prop="food_name" label="名称" />
       <el-table-column prop="food_price" label="价格" sortable />
       <el-table-column prop="food_ingredient" label="原料" />
