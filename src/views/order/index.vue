@@ -80,11 +80,6 @@ export default {
       return (this.page - 1) * this.limit + 1
     }
   },
-  watch: {
-    tableData() {
-
-    }
-  },
   created() {
     this.reqOrders()
   },
