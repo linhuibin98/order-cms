@@ -15,6 +15,7 @@
       <el-table-column prop="num" label="工号" />
       <el-table-column prop="position" label="职位" />
       <el-table-column prop="salary" label="月薪" />
+      <el-table-column prop="date" label="入职日期" />
       <el-table-column prop="remark" label="备注" />
       <el-table-column label="操作" width="150px">
         <template slot-scope="scope">
@@ -73,7 +74,8 @@ export default {
           num: '001',
           position: '经理',
           salary: '19999',
-          remark: '执行总经理'
+          remark: '执行总经理',
+          date: '2011-03-22'
         },
         {
           name: '李四',
@@ -81,7 +83,8 @@ export default {
           num: '002',
           position: '厨师长',
           salary: '12222',
-          remark: '厨师长'
+          remark: '厨师长',
+          date: '2011-05-02'
         },
         {
           name: '王五',
@@ -89,7 +92,8 @@ export default {
           num: '003',
           position: '厨师',
           salary: '9999',
-          remark: '1号炒锅师傅'
+          remark: '1号炒锅师傅',
+          date: '2011-05-04'
         },
         {
           name: '严无',
@@ -97,7 +101,8 @@ export default {
           num: '004',
           position: '厨师',
           salary: '19999',
-          remark: '2号炒锅师傅'
+          remark: '2号炒锅师傅',
+          date: '2015-07-28'
         },
         {
           name: '贾晓晓',
@@ -105,7 +110,8 @@ export default {
           num: '005',
           position: '服务员',
           salary: '6666',
-          remark: '服务员'
+          remark: '服务员',
+          date: '2018-05-09'
         },
         {
           name: '甄世大',
@@ -113,28 +119,32 @@ export default {
           num: '006',
           position: '厨师',
           salary: '9999',
-          remark: '蒸锅师傅'
+          remark: '蒸锅师傅',
+          date: '2017-06-18'
         },
         {
           name: '白月光',
           sex: '男',
           num: '007',
           position: '服务员',
-          salary: '19999'
+          salary: '6666',
+          date: '2019-01-01'
         },
         {
           name: '邓邓等',
           sex: '男',
           num: '008',
           position: '厨师',
-          salary: '19999'
+          salary: '19999',
+          date: '2019-01-29'
         },
         {
           name: '奥特曼',
           sex: '男',
           num: '009',
           position: '超人',
-          salary: '199999'
+          salary: '199999',
+          date: '2011-03-22'
         },
         {
           name: '段秀秀',
@@ -142,14 +152,16 @@ export default {
           num: '010',
           position: '洗完工',
           salary: '5555',
-          remark: '有补贴'
+          remark: '有补贴',
+          date: '2011-03-22'
         },
         {
           name: '光头强',
           sex: '男',
           num: '011',
           position: '经理',
-          salary: '7962'
+          salary: '7962',
+          date: '2011-03-22'
         },
         {
           name: '熊大',
@@ -157,63 +169,72 @@ export default {
           num: '012',
           position: '凉菜师傅',
           salary: '12222',
-          remark: '有补贴'
+          remark: '有补贴',
+          date: '2011-03-22'
         },
         {
           name: '王强',
           sex: '男',
           num: '001',
           position: '经理',
-          salary: '19999'
+          salary: '19999',
+          date: '2011-03-22'
         },
         {
           name: '王强',
           sex: '男',
           num: '001',
           position: '经理',
-          salary: '19999'
+          salary: '19999',
+          date: '2011-03-22'
         },
         {
           name: '王强',
           sex: '男',
           num: '001',
           position: '经理',
-          salary: '19999'
+          salary: '19999',
+          date: '2011-03-22'
         },
         {
           name: '王强',
           sex: '男',
           num: '001',
           position: '经理',
-          salary: '19999'
+          salary: '19999',
+          date: '2011-03-22'
         },
         {
           name: '王强',
           sex: '男',
           num: '001',
           position: '经理',
-          salary: '19999'
+          salary: '19999',
+          date: '2011-03-22'
         },
         {
           name: '王强',
           sex: '男',
           num: '001',
           position: '经理',
-          salary: '19999'
+          salary: '19999',
+          date: '2011-03-22'
         },
         {
           name: '王强',
           sex: '男',
           num: '001',
           position: '经理',
-          salary: '19999'
+          salary: '19999',
+          date: '2011-03-22'
         },
         {
           name: '王强',
           sex: '男',
           num: '001',
           position: '经理',
-          salary: '19999'
+          salary: '19999',
+          date: '2011-03-22'
         }
       ],
       currentEdit: {
