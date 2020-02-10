@@ -100,6 +100,17 @@ export function getOrders({ id, page, limit }) {
   });
 }
 
+// 搜索订单
+export function searchOrder({ num = "", name = "" }) {
+  return request({
+    url: "/order/detail",
+    params: {
+      num,
+      name
+    }
+  });
+}
+
 // 获取图形表数据
 export function getChartOrderData(id, day = 7) {
   return request({

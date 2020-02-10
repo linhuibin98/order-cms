@@ -24,7 +24,7 @@
       <el-table-column prop="userPhone" label="买家手机号" />
       <el-table-column prop="time" label="下单时间" />
       <el-table-column prop="price" label="订单总价" />
-      <el-table-column label="详情">
+      <el-table-column label="操作">
         <template slot-scope="scope">
           <el-button type="primary" @click="handleLook(scope)">查看</el-button>
         </template>
@@ -57,7 +57,7 @@
 </template>
 
 <script>
-import { getOrders } from '@/api/user'
+import { getOrders, searchOrder } from '@/api/user'
 import { mapGetters } from 'vuex'
 import formatDate from '@/utils/formatDate'
 
@@ -78,6 +78,11 @@ export default {
     ...mapGetters(['id']),
     computeIndex() {
       return (this.page - 1) * this.limit + 1
+    }
+  },
+  watch: {
+    tableData() {
+
     }
   },
   created() {
@@ -120,8 +125,24 @@ export default {
       this.page -= 1
     },
     // 搜索订单
-    handleSearch() {
+    async handleSearch() {
+      const params = {}
+      if (this.select === '订单号') {
+        params['num'] = this.q
+      } else {
+        params['name'] = this.q
+      }
 
+      const result = await searchOrder(params)
+
+      if (!result.data || !result.data.length) {
+        this.$message({
+          message: '搜索结果为空',
+          type: 'success'
+        })
+      } else {
+        this.tableData = result.data
+      }
     }
   }
 }
